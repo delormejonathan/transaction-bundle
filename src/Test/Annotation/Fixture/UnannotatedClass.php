@@ -18,13 +18,11 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0.html Apache-2.0
  */
 
-namespace Inneair\TransactionBundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+namespace Inneair\TransactionBundle\Test\Annotation\Fixture;
 
 /**
- * Inneair Transaction bundle.
+ * Class which has no {@link Transactional} annotation.
  */
-class InneairTransactionBundle extends Bundle
+class UnannotatedClass
 {
 }

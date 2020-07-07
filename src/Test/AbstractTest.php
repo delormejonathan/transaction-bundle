@@ -18,13 +18,13 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0.html Apache-2.0
  */
 
-namespace Inneair\TransactionBundle;
+namespace Inneair\TransactionBundle\Test;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use PHPUnit_Framework_TestCase;
 
 /**
- * Inneair Transaction bundle.
+ * Base class for automated test cases.
  */
-class InneairTransactionBundle extends Bundle
+abstract class AbstractTest extends PHPUnit_Framework_TestCase
 {
 }

@@ -18,13 +18,17 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0.html Apache-2.0
  */
 
-namespace Inneair\TransactionBundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+namespace Inneair\TransactionBundle\Test\Aop\Fixture;
 
 /**
- * Inneair Transaction bundle.
+ * A class that does not support the Transaction annotation.
  */
-class InneairTransactionBundle extends Bundle
+class NonTransactionalAwareClass
 {
+    /**
+     * A public method.
+     */
+    public function publicMethod()
+    {
+    }
 }

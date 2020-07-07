@@ -18,13 +18,16 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0.html Apache-2.0
  */
 
-namespace Inneair\TransactionBundle;
+namespace Inneair\TransactionBundle\Test\Annotation\Fixture;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Inneair\TransactionBundle\Annotation\Transactional;
+use stdClass;
 
 /**
- * Inneair Transaction bundle.
+ * Class which has a {@link Transactional} annotation.
+ *
+ * @Transactional(noRollbackExceptions=stdClass::class)
  */
-class InneairTransactionBundle extends Bundle
+class AnnotatedClassWithInvalidNoRollbackExceptionClass
 {
 }

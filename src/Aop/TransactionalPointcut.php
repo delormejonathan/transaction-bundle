@@ -27,6 +27,8 @@ use ReflectionClass;
 use ReflectionMethod;
 use Inneair\TransactionBundle\Annotation\Transactional;
 use Inneair\TransactionBundle\Annotation\TransactionalAwareInterface;
+use Inneair\TransactionBundle\DependencyInjection\Configuration;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * This class defines a pointcut specification for transaction management.
@@ -52,16 +54,18 @@ class TransactionalPointcut implements PointcutInterface
     /**
      * Creates a transactional pointcut.
      *
+     * @param ContainerInterface $container
      * @param Reader $reader An annotations reader.
      * @param LoggerInterface $logger Logger.
-     * @param boolean $strictModeEnabled
      * @see TransactionalAwareInterface
      */
-    public function __construct(Reader $reader, LoggerInterface $logger, $strictModeEnabled = false)
+    public function __construct(ContainerInterface $container, Reader $reader, LoggerInterface $logger)
     {
         $this->reader = $reader;
         $this->logger = $logger;
-        $this->strictModeEnabled = $strictModeEnabled;
+        $this->strictModeEnabled = $container->getParameter(
+            Configuration::ROOT_NODE_NAME . '.' . Configuration::STRICT_MODE
+        );
     }
 
     /**
@@ -89,35 +93,42 @@ class TransactionalPointcut implements PointcutInterface
             $annotation = $this->reader->getMethodAnnotation($method, Transactional::class);
             $transactionalEnabled = ($annotation !== null);
             if (!$transactionalEnabled) {
-                // If there is no method-level annotation, gets class-level annotation.
+                // If there is no method-level annotation,
+                // gets class-level annotation.
                 $annotation = $this->reader->getClassAnnotation($method->getDeclaringClass(), Transactional::class);
                 $transactionalEnabled = ($annotation !== null);
             }
 
             if ($transactionalEnabled) {
                 switch ($annotation->getPolicy()) {
-                    case Transactional::NOT_REQUIRED:
-                        $policyName = 'not required';
-                        break;
-                    case Transactional::REQUIRED:
-                        $policyName = 'required';
-                        break;
-                    case Transactional::NESTED:
-                        $policyName = 'nested';
-                        break;
-                    default:
-                        $policyName = 'default';
+                case Transactional::NOT_REQUIRED:
+                    $policyName = 'not required';
+                    break;
+                case Transactional::REQUIRED:
+                    REQUIRED:
+                    $policyName = 'required';
+                    break;
+                case Transactional::NESTED:
+                    NESTED:
+                    $policyName = 'nested';
+                    break;
+                default:
+                    $policyName = 'default';
+                    break;
                 }
-                $methodString = $method->getDeclaringClass()->name . '::' . $method->name;
-                $this->logger->debug('TX policy for \'' . $methodString . '\': ' . $policyName);
+                $this->logger->debug(
+                    'TX policy for \'' . $method->getDeclaringClass()->getName() . '::' . $method->getName() . '\': '
+                    . $policyName
+                );
                 $noRollbackExceptionsStr = implode(
                     ', ',
                     ($annotation->getNoRollbackExceptions() === null)
-                        ? ['default']
+                        ? array('default')
                         : $annotation->getNoRollbackExceptions()
                 );
                 $this->logger->debug(
-                    'TX no-rollback exceptions for \'' . $methodString . '\': ' . $noRollbackExceptionsStr
+                    'TX no-rollback exceptions for \'' . $method->getDeclaringClass()->getName() . '::'
+                    . $method->getName() . '\': ' . $noRollbackExceptionsStr
                 );
             }
         }

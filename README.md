@@ -1,16 +1,10 @@
 # Inneair Transaction bundle for Symfony
 
-[![Build status](https://travis-ci.org/Inneair/transaction-bundle.svg?branch=master)][travis-bundle]
-[![Coverage status](https://coveralls.io/repos/github/Inneair/transaction-bundle/badge.svg?branch=master)][coveralls-bundle]
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/dd05d1a8-f9a8-412a-b2d4-ea1d28ebe223.svg)](https://insight.sensiolabs.com/projects/dd05d1a8-f9a8-412a-b2d4-ea1d28ebe223)
+[![Build status](https://secure.travis-ci.org/Inneair/TransactionBundle.png)][travis-bundle]
+[![Coverage status](https://coveralls.io/repos/Inneair/TransactionBundle/badge.svg?branch=master&service=github)][coveralls-bundle]
 
-[![Latest stable version](https://poser.pugx.org/inneair/transaction-bundle/v/stable)][packagist-bundle]
-[![Latest unstable version](https://poser.pugx.org/inneair/transaction-bundle/v/unstable)][packagist-bundle]
-[![License](https://poser.pugx.org/inneair/transaction-bundle/license)][packagist-bundle]
-
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Inneair/transaction-bundle/build-status/master)
+[![Latest stable version](https://poser.pugx.org/Inneair/TransactionBundle/v/stable.png)][packagist-bundle]
+[![License](https://poser.pugx.org/Inneair/TransactionBundle/license)][packagist-bundle]
 
 This bundle provides an easy way to manage transactions with annotations. It is highly inspired from the one provided as
 example by the [JMSAopBundle][jmsaop-bundle], but provides :
@@ -40,13 +34,10 @@ is part of the persistence layer, and shall not be aware of this.
 The bundle can be installed in your Symfony project with [Composer][composer]. Open a command console, enter your
 project directory and execute the following command to download the latest stable version of this bundle:
 ```bash
-composer require inneair/transaction-bundle
+composer require Inneair/TransactionBundle
 ```
 
 ## 2. Activation
-
-Activate the [JMSAopBundle][jmsaop-bundle] first, following [those instructions][jms-aop-installation] for installation
-and configuration.
 
 Activate the bundle by modifying the `app/AppKernel.php` file:
 ```php
@@ -86,14 +77,14 @@ inneair_transaction:
 <?xml version="1.0" ?>
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:inneair-transaction="http://example.org/schema/dic/inneair_transaction"
+    xmlns:Inneair-transaction="http://example.org/schema/dic/inneair_transaction"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd
         inneair_transaction http://example.org/dic/schema/inneair_transaction/transaction-1.0.xsd">
 
-    <inneair-transaction:config strict-mode="false" default-policy="required">
-        <inneair-transaction:no-rollback-exception>Company\Bundle\MyException1</Inneair-transaction:no-rollback-exception>
-        <inneair-transaction:no-rollback-exception>Company\Bundle\MyException2</Inneair-transaction:no-rollback-exception>
-    </inneair-transaction:config>
+    <Inneair-transaction:config strict-mode="false" default-policy="required">
+        <Inneair-transaction:no-rollback-exception>Company\Bundle\MyException1</Inneair-transaction:no-rollback-exception>
+        <Inneair-transaction:no-rollback-exception>Company\Bundle\MyException2</Inneair-transaction:no-rollback-exception>
+    </Inneair-transaction:config>
 </container>
 ```
 
@@ -329,12 +320,11 @@ effort.**
 
 [composer]: <https://getcomposer.org/> (Get Composer)
 [configuration]: <#configuration>
-[coveralls-bundle]: <https://coveralls.io/github/Inneair/transaction-bundle?branch=master> (Test coverage on Coveralls)
+[coveralls-bundle]: <https://coveralls.io/github/Inneair/TransactionBundle?branch=master> (Test coverage on Coveralls)
 [doctrinebundle-config]: <http://symfony.com/doc/current/bundles/DoctrineBundle/configuration.html> (DoctrineBundle configuration reference)
 [example]: <#example>
 [installation]: <#installation>
 [jmsaop-bundle]: <https://github.com/schmittjoh/JMSAopBundle>
-[jms-aop-installation]: http://jmsyst.com/bundles/JMSAopBundle
-[packagist-bundle]: <https://packagist.org/packages/Inneair/transaction-bundle> (Bundle packages on Packagist)
-[travis-bundle]: <http://travis-ci.org/Inneair/transaction-bundle> (Build status on Travis CI)
+[packagist-bundle]: <https://packagist.org/packages/Inneair/TransactionBundle> (Bundle packages on Packagist)
+[travis-bundle]: <http://travis-ci.org/Inneair/TransactionBundle> (Build status on Travis CI)
 [usage]: <#usage>
